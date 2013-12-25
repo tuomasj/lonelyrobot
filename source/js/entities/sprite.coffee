@@ -60,6 +60,8 @@ class App.Sprite extends App.Entity
       @animation_index = 0
       @current_animation_frames = @frames[key]
       @animation_count = @get_frame_duration( @animation_index )
+    else
+      debug "'#{key}' frames not found", ERROR
 
   get_frame_duration: (index) ->
     if @current_animation_frames and index < @current_animation_frames.length-1

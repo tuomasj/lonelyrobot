@@ -12,6 +12,7 @@
 #= require 'particles/red_volcano.js'
 #= require 'engine/player_menu.js'
 #= require 'particles/blue_smoke.js'
+#= require 'entities/red_volcano.js'
 
 window.LEVEL2 = {
   width: 15,
@@ -49,9 +50,9 @@ window.LEVEL1 = {
     48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,48,
     48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,48,
     48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,48,
-    48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,48, 
-    48,49,49,49,49,49,49,49, 0, 0, 0,49,49,49,48,
-    48,48,48,48,48,48,48,48, 0, 0, 0,48,48,48,48, 
+    48,49,49,49,49,49,49,49, 0, 0, 0,49,49,49,48, 
+    48,48,48,48,48,48,48,48, 0, 0, 0,48,48,48,48,
+    48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,48,48,48,
     48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,48,48,48,
     48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,48,48,48, 
     48, 0, 0, 0, 0, 0, 0,49,49,49,49,49,48,48,48,
@@ -83,22 +84,26 @@ window.init_game = ->
     tilemap.load(window.LEVEL1);
 
     sprites = new App.EntityContainer()
+    npcs = new App.EntityContainer()
     @hero = new App.Hero(tilemap, App.Resources.sprites )
     sprites.add( @hero )
     particles = new App.ParticleContainer(tilemap)
-    red_volcano = new App.ParticleEmitters.RedVolcano( particles, 100, 90)
-    blue_smoke = new App.ParticleEmitters.BlueSmoke( particles, 190, 90)
+    #red_volcano = new App.ParticleEmitters.RedVolcano( particles, 100, 90)
+    #blue_smoke = new App.ParticleEmitters.BlueSmoke( particles, 190, 90)
+
+    npcs.add(new App.NPC.RedVolcano( tilemap, App.Resources.sprites, particles, 6*16, 4*16))
+    npcs.add(new App.NPC.RedVolcano( tilemap, App.Resources.sprites, particles, 10*16, 9*16))
 
     player_menu = new App.PlayerMenu()
 
     # engine render/update pump
     engine.addCallback( tilemap )
+    engine.addCallback( npcs )
     engine.addCallback( particles )
     engine.addCallback( sprites )
     engine.addCallback( player_menu )
-    
-    engine.addCallback( red_volcano )
-    engine.addCallback( blue_smoke )
+
+    #engine.addCallback( blue_smoke )
     canvas.init_controller()
     canvas.add_controller_listener( @hero )
     canvas.add_controller_listener( player_menu)

@@ -1,6 +1,7 @@
 window.App = {
   Commands: { },
   ParticleEmitters: { },
+  NPC: { },
   Resources: { sprites: null}
 }
 window.game = {}
