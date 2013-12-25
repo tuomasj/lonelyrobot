@@ -7,6 +7,10 @@ class App.Hero extends App.Sprite
     @setPosition(60,42)
     @setSize(16, 16)
     @menu_listener = null
+    @frames = {
+      left: [ [0, 0.5], [1, 0.5], [2, 0.5], [3, 0.5]],
+      right: [ [16, 0.5], [17, 0.5], [18, 0.5], [19, 0.5]],
+    }
 
   set_menu_listener: (menu) ->
     @menu_listener = menu
@@ -44,7 +48,6 @@ class App.Hero extends App.Sprite
     @y += @velocity_y * deltaTime
 
   move: (target_x, target_y) ->
-    debug "  - Move to (#{target_x},#{target_y})"
     command = new App.Commands.MoveCommand(this, {x: target_x, y:target_x})
     @setCommand(command)
 
@@ -55,7 +58,6 @@ class App.Hero extends App.Sprite
       if dist_x > 0 and dist_x < @width and dist_y > 0 and dist_y < @height
         @notify_player_menu()
       else   
-        debug "- Move"
         command = new App.Commands.MoveCommand(this, { x: mouse_x - @width / 2, y: mouse_y})
         @setCommand( command )
 

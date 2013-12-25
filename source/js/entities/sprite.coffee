@@ -8,10 +8,7 @@ class App.Sprite extends App.Entity
     @resetVelocity()
     @on_ground = false
     @sprites = sprites
-    @frames = {
-      left: [ [0, 0.5], [1, 0.5], [2, 0.5], [3, 0.5]],
-      right: [ [16, 0.5], [17, 0.5], [18, 0.5], [19, 0.5]],
-    }
+    @frames = { }
     @current_animation_frames = null
 
   apply_gravity: (deltaTime) ->
@@ -22,7 +19,6 @@ class App.Sprite extends App.Entity
     if @command
       done = @command.process(deltaTime)
       if done
-        debug "  - Setting command to null"
         @command = null
     # animate
     if @animate
