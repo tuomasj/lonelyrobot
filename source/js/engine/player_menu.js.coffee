@@ -1,7 +1,7 @@
 #= require 'commands/build_command.js'
 
 class App.PlayerMenu extends App.Entity
-	constructor: ->
+	constructor: (particles) ->
 		@menu_items = ['collector', 'platform']
 		@active = false
 		@setPosition(0,0)
@@ -12,6 +12,7 @@ class App.PlayerMenu extends App.Entity
 		@rects = []
 		@active_menu_item = -1
 		@animation_counter = 0
+		@particles = particles
 
 		for line in [0..@menu_items.length-1]
 			@rects.push( { x: 0, y: line * (@FONT_SIZE*2), width: @box_width, height: 24})
@@ -92,13 +93,14 @@ class App.PlayerMenu extends App.Entity
 					@start_click_animation(num)
 			return true
 		return false
+
 	handle_dblclick: (x,y) ->
 		@handle_click(x,y)
 
 	perform_action: (action) ->
 		debug "@entity.direction = #{@entity.direction}"
 		if "collector" == action
-			@entity.setCommand( new App.Commands.BuildCommand(@entity, { timer: 60 }))
+			@entity.setCommand( new App.Commands.BuildCommand(@entity, { timer: 60, particles: @particles }))
 			if @direction == "left"
 				@entity.start_animation('build_left')
 			else 

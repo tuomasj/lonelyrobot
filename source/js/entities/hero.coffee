@@ -75,7 +75,7 @@ class App.Hero extends App.Sprite
     if @menu_listener
       @menu_listener.notify(this)
 
-  drop_collector: ->
+  drop_collector: (particles) ->
     if @npcs
-      collector = new App.NPC.Collector(@map, @sprites, @x, @y)
+      collector = new App.NPC.Collector(@map, @sprites, @x, @y, particles)
       @npcs.add(collector)

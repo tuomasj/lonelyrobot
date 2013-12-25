@@ -5,15 +5,15 @@ class App.Commands.BuildCommand extends App.Command
 		super(entity)
 		@entity = entity
 		@start_timer = params.timer
+		@particles = params.particles
 		@timer = 0
 
 	process: (deltaTime) ->
 		@timer -= deltaTime
 		if @timer < 0
 			if @state == "stand"
-				debug("- command done")
 				@entity.stop_animation()
-				@entity.drop_collector()
+				@entity.drop_collector(@particles)
 				return true
 		if @timer < 0
 				if @state == "build"

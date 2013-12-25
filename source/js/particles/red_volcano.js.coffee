@@ -9,11 +9,11 @@ class App.ParticleEmitters.RedVolcano
 		@counter -= deltaTime
 		if @counter < 0
 			@emit_particle(@x,@y)
-			@counter = Math.floor(Math.random() * 5) + 1
+			@counter = Math.floor(Math.random() * 15) + 10
 
 	render: (context) ->
 
 
 	emit_particle: (x,y) ->
 		speed = Math.random()*1.5
-		@particle_container.add( new App.Particle(x,y, (Math.random() * 1)-0.5 * speed, -4.5*speed))
+		@particle_container.add( new App.Particle(x,y, (Math.random() * 1)-0.5 * speed, -4.5 - speed))

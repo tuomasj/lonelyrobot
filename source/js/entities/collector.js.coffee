@@ -19,13 +19,16 @@ class App.NPC.Collector extends App.Sprite
 		if @ore_counter < 25
 			if @grace_period >= 0
 				@grace_period -= deltaTime
-				if @grace_period < 0
-					debug "- grace_period: #{@grace_period}"
-					if @particles.collides_with_entity(this)
-						@start_animation('collect')
-						@grace_period = Math.round(Math.random() * 10) + 30
-						debug "- set grace_period: #{@grace_period}"
-						@ore_counter += 1
-						debug "- ore_counter: #{@ore_counter}"
-						if @ore_counter >= 25
-							@start_animation("full")
+			if @grace_period < 0
+				shape = {
+					x: @x + 2,
+					y: @y + 3,
+					width: @width - 3,
+					height: @height - 3
+				}
+				if @particles.falling_particles_collides_with_entity(shape)
+					@start_animation('collect')
+					@grace_period = 3
+					@ore_counter += 1
+					if @ore_counter >= 20
+						@start_animation("full")

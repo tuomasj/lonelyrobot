@@ -95,7 +95,7 @@ window.init_game = ->
     
     npcs.add(new App.NPC.Collector( tilemap, App.Resources.sprites, 9*16, 9*16, particles))
 
-    player_menu = new App.PlayerMenu()
+    player_menu = new App.PlayerMenu( particles )
 
     # engine render/update pump
     engine.addCallback( tilemap )
