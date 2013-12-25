@@ -12,9 +12,11 @@ class App.Commands.MoveCommand extends App.Command
 
   start: ->
     if @dir < 0
+      @entity.direction = "left"
       @entity.start_animation("left")
     else
       if @dir > 0
+        @entity.direction = "right"
         @entity.start_animation("right")
 
   distance: ->
@@ -53,9 +55,9 @@ class App.Commands.MoveCommand extends App.Command
   target_reached: ->
     @entity.resetVelocity()
     @entity.stop_animation()
-    if @dir > 0
-      @entity.idle_frame = 16
+    if @entity.direction == "left"
+      @entity.idle_frame = 0
     else
-      if @dir < 0
-        @entity.idle_frame = 0
+      if @entity.direction == "right"
+        @entity.idle_frame = 16
     

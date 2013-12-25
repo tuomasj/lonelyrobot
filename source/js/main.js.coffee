@@ -93,6 +93,8 @@ window.init_game = ->
 
     npcs.add(new App.NPC.RedVolcano( tilemap, App.Resources.sprites, particles, 6*16, 4*16))
     npcs.add(new App.NPC.RedVolcano( tilemap, App.Resources.sprites, particles, 10*16, 9*16))
+    npcs.add(new App.NPC.Collector( tilemap, App.Resources.sprites, 9*16, 9*16))
+
 
     player_menu = new App.PlayerMenu()
 
@@ -109,6 +111,7 @@ window.init_game = ->
     canvas.add_controller_listener( player_menu)
 
     @hero.set_menu_listener( player_menu )
+    @hero.set_npcs_collection( npcs )
     #player_menu.notify(@hero)
     # start your engines
     engine.start()

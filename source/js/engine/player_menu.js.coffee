@@ -96,10 +96,11 @@ class App.PlayerMenu extends App.Entity
 		@handle_click(x,y)
 
 	perform_action: (action) ->
+		debug "@entity.direction = #{@entity.direction}"
 		if "collector" == action
 			@entity.setCommand( new App.Commands.BuildCommand(@entity, { timer: 60 }))
-			if @entity.idle_frame == 0
+			if @direction == "left"
 				@entity.start_animation('build_left')
 			else 
-				if @entity.idle_frame == 16
+				if @direction == "right"
 					@entity.start_animation('build_right')

@@ -1,4 +1,5 @@
 #= require 'commands/move_command.js'
+#= require 'entities/collector.js'
 
 class App.Hero extends App.Sprite
   constructor: (map, sprites) ->
@@ -15,14 +16,16 @@ class App.Hero extends App.Sprite
       stand_up_left: [ [14, 0.8], [13, 0.8],[12, 0.8],[11, 0.8],[10, 0.8],[9, 0.8],[8, 0.8]]
       stand_up_right: [ [30, 0.8], [29, 0.8],[28, 0.8],[27, 0.8],[26, 0.8],[25, 0.8],[40, 0.8]]
     }
+    @direction = "right"
+
+  set_npcs_collection: (npcs) ->
+    @npcs = npcs
 
   set_menu_listener: (menu) ->
     @menu_listener = menu
 
   render: (context) ->
     super(context)
-    #context.fillStyle = "green"
-    #context.fillRect( Math.floor(@x), Math.floor(@y), window.SPRITE_SIZE_IN_PIXELS,window.SPRITE_SIZE_IN_PIXELS)
     
   update: (deltaTime) ->
     super(deltaTime)
@@ -46,7 +49,6 @@ class App.Hero extends App.Sprite
     else
       @velocity_y = 0
       @y = dir.bottom.entity.y - @height
-      #debug "- on ground  y: #{@y}  velocity_y: #{@velocity_y}"
 
     @x += @velocity_x * deltaTime
     @y += @velocity_y * deltaTime
@@ -68,8 +70,12 @@ class App.Hero extends App.Sprite
     #if dist_x < 0 and dist_x > @width
     #  if dist_y < 0 and dist_y > @height
     @setCommand(new App.Commands.MoveCommand(this, { x: mouse_x - @width / 2, y: mouse_y}))
-        
 
   notify_player_menu: ->
     if @menu_listener
       @menu_listener.notify(this)
+
+  drop_collector: ->
+    if @npcs
+      collector = new App.NPC.Collector(@map, @sprites, @x, @y)
+      @npcs.add(collector)
