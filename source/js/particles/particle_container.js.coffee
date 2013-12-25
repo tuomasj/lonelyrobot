@@ -28,6 +28,15 @@ class App.ParticleContainer
 				return true
 		return false
 
+	collides_with_entity: (entity) ->
+		len = @particles.length
+		if len > 0
+			for i in [len-1..0]
+				p = @particles[i]
+				if @check_collision(p, entity )
+					@particles.remove(i)
+					continue
+
 	clamp: (value, min, max) ->
 		if value > max
 			return max

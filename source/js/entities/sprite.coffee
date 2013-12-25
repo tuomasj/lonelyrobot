@@ -49,10 +49,18 @@ class App.Sprite extends App.Entity
     context.drawImage( @sprites, sx, sy, @width, @height, Math.floor(@x), Math.floor(@y), @width, @height)
 
   next_frame: (offsetTime) ->
+    # syntax:
+    #  [ frame, duration ]
+    #  -1  loop  [-1, new_frame ]
+    #  -2  change to new animation    [-2, "new_animation" ]
+    
     if @animation_index < @current_animation_frames.length-1
       @animation_index += 1
       if @current_animation_frames[@animation_index][0] == -1
         @animation_index = @current_animation_frames[@animation_index][1]
+      if @current_animation_frames[@animation_index][0] == -2
+        @start_animation(@current_animation_frames[@animation_index][1])
+      
     else
       @animation_index = 0
     @animation_count = @current_animation_frames[@animation_index][1] - offsetTime

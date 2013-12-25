@@ -83,26 +83,26 @@ window.init_game = ->
     tilemap = new App.TileMap( App.Resources.sprites )
     tilemap.load(window.LEVEL1);
 
-    sprites = new App.EntityContainer()
+    player_sprites = new App.EntityContainer()
     npcs = new App.EntityContainer()
+    static_objects = new App.EntityContainer()
     @hero = new App.Hero(tilemap, App.Resources.sprites )
-    sprites.add( @hero )
+    player_sprites.add( @hero )
     particles = new App.ParticleContainer(tilemap)
-    #red_volcano = new App.ParticleEmitters.RedVolcano( particles, 100, 90)
-    #blue_smoke = new App.ParticleEmitters.BlueSmoke( particles, 190, 90)
-
-    npcs.add(new App.NPC.RedVolcano( tilemap, App.Resources.sprites, particles, 6*16, 4*16))
-    npcs.add(new App.NPC.RedVolcano( tilemap, App.Resources.sprites, particles, 10*16, 9*16))
-    npcs.add(new App.NPC.Collector( tilemap, App.Resources.sprites, 9*16, 9*16))
-
+    
+    static_objects.add(new App.NPC.RedVolcano( tilemap, App.Resources.sprites, particles, 6*16, 4*16))
+    static_objects.add(new App.NPC.RedVolcano( tilemap, App.Resources.sprites, particles, 10*16, 9*16))
+    
+    npcs.add(new App.NPC.Collector( tilemap, App.Resources.sprites, 9*16, 9*16, particles))
 
     player_menu = new App.PlayerMenu()
 
     # engine render/update pump
     engine.addCallback( tilemap )
-    engine.addCallback( npcs )
+    engine.addCallback( static_objects )
     engine.addCallback( particles )
-    engine.addCallback( sprites )
+    engine.addCallback( npcs )
+    engine.addCallback( player_sprites )
     engine.addCallback( player_menu )
 
     #engine.addCallback( blue_smoke )

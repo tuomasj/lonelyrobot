@@ -9,8 +9,8 @@ class App.Engine
   init: ->
     @raf = window.requestAnimationFrame
 
-    window.onfocus = @on_focus
-    window.onblur = @on_blur
+    # window.onfocus = @on_focus
+    # window.onblur = @on_blur
 
     if not @raf
       debug("Unable to continue, window.requestAnimationFrame not found")

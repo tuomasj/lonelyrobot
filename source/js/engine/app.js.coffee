@@ -9,7 +9,7 @@ window.ERROR = 1
 window.SUCCESS = 2
 window.TILE_SIZE_IN_PIXELS = 16
 window.SPRITE_SIZE_IN_PIXELS = 12
-window.debug_ctx = null
+window.debug_ctx = null	
 
 # Array Remove - By John Resig (MIT Licensed)
 Array::remove = (from, to) ->
