@@ -50,10 +50,7 @@ class App.Hero extends App.Sprite
   handle_click: (mouse_x, mouse_y) ->
     dist_x = Math.floor(mouse_x - @x)
     dist_y = Math.floor(mouse_y - @y)
-    if @menu_listener.active
-      @menu_listener.deactivate()
-    else
-
+    if not @menu_listener.active
       if dist_x > 0 and dist_x < window.SPRITE_SIZE_IN_PIXELS and dist_y > 0 and dist_y < window.SPRITE_SIZE_IN_PIXELS
         @notify_player_menu()
       else   

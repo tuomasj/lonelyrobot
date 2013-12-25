@@ -103,9 +103,10 @@ window.addEventListener "load", ->
     engine.addCallback( blue_smoke )
     canvas.init_controller()
     canvas.add_controller_listener( @hero )
+    canvas.add_controller_listener( player_menu)
 
     @hero.set_menu_listener( player_menu )
-    player_menu.notify(@hero)
+    #player_menu.notify(@hero)
     # start your engines
     engine.start()
   else
