@@ -49,7 +49,6 @@ class App.PlayerMenu extends App.Entity
 
 	update: (deltaTime) ->
 		if @active_menu_item != -1
-			debug "@animation_counter: #{@animation_counter}"
 			@animation_counter -= deltaTime
 			if @animation_counter < 0
 				@animation_counter = 0
@@ -66,7 +65,6 @@ class App.PlayerMenu extends App.Entity
 	start_click_animation: (num) ->
 		@animation_counter = 2
 		@active_menu_item = num
-		debug "request_deactivation"
 
 	hit_menu_item: (mouse_x,mouse_y) ->
 		item = 0
@@ -78,7 +76,6 @@ class App.PlayerMenu extends App.Entity
 
 	handle_click: (x,y) ->
 		if @active
-			debug "PlayerMenu.handle_click(#{x}, #{y})"
 			box_x1 = Math.floor(@entity.x - (@box_width / 2))
 			box_y1 = Math.floor(@entity.y - (@box_height / 2))
 			box_x2 = Math.floor(@entity.x + (@box_width / 2))
@@ -88,7 +85,6 @@ class App.PlayerMenu extends App.Entity
 			else
 				num = @hit_menu_item(x, y)
 				if num >= 0
-					debug "- @menu_items: #{@menu_items[num]}"
 					@start_click_animation(num)
 			return true
 		return false
