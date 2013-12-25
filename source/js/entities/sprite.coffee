@@ -34,6 +34,7 @@ class App.Sprite extends App.Entity
   setCommand: (command) ->
     debug "  - Set command"
     @command = command
+    @command.start()
 
   render: (context) ->
     super(context)
@@ -49,13 +50,16 @@ class App.Sprite extends App.Entity
 
   next_frame: (offsetTime) ->
     if @animation_index < @current_animation_frames.length-1
-      @animation_index += 1  
+      @animation_index += 1
+      if @current_animation_frames[@animation_index][0] == -1
+        @animation_index = @current_animation_frames[@animation_index][1]
     else
       @animation_index = 0
     @animation_count = @current_animation_frames[@animation_index][1] - offsetTime
 
   start_animation: (key) ->
     if key of @frames
+      debug "start_animation('#{key}')"
       @animate = true
       @animation_index = 0
       @current_animation_frames = @frames[key]

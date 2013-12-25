@@ -9,6 +9,8 @@ class App.Commands.MoveCommand extends App.Command
     @target_x = params.x
     @target_y = params.y
     @dir = @entity.x - @target_x
+
+  start: ->
     if @dir < 0
       @entity.start_animation("left")
     else

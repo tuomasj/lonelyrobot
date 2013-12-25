@@ -3,3 +3,5 @@ class App.Command
 		@entity = entity
 
 	process: (deltaTime) ->
+
+	start: ->

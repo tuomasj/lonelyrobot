@@ -1,10 +1,12 @@
+#= require 'commands/build_command.js'
+
 class App.PlayerMenu extends App.Entity
 	constructor: ->
-		@menu_items = ['build', 'collect', 'test']
+		@menu_items = ['collector', 'platform']
 		@active = false
 		@setPosition(0,0)
 		@entity = null
-		@FONT_SIZE = 16
+		@FONT_SIZE = 12
 		@box_height = (@menu_items.length+1) * 24
 		@box_width = 100
 		@rects = []
@@ -51,8 +53,10 @@ class App.PlayerMenu extends App.Entity
 		if @active_menu_item != -1
 			@animation_counter -= deltaTime
 			if @animation_counter < 0
+				@perform_action( @menu_items[@active_menu_item])
 				@animation_counter = 0
 				@active_menu_item = -1
+				
 				@deactivate()
 
 	notify: (entity) ->
@@ -88,3 +92,14 @@ class App.PlayerMenu extends App.Entity
 					@start_click_animation(num)
 			return true
 		return false
+	handle_dblclick: (x,y) ->
+		@handle_click(x,y)
+
+	perform_action: (action) ->
+		if "collector" == action
+			@entity.setCommand( new App.Commands.BuildCommand(@entity, { timer: 60 }))
+			if @entity.idle_frame == 0
+				@entity.start_animation('build_left')
+			else 
+				if @entity.idle_frame == 16
+					@entity.start_animation('build_right')

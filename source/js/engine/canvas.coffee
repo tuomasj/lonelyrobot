@@ -7,12 +7,17 @@ class App.Canvas
 		@listeners = []
 
 	init_controller: ->
-		@canvas.addEventListener "mouseup", (e) =>
+		@canvas.addEventListener "click", (e) =>
 			x = e.clientX - @clientRect.left
 			y = e.clientY - @clientRect.top
-			debug "Mouse event on (#{x},#{y})"
 			for listener in @listeners
 				if listener.handle_click(Math.floor(x / 2),Math.floor(y / 2))
+					return
+		@canvas.addEventListener "dblclick", (e) =>
+			x = e.clientX - @clientRect.left
+			y = e.clientY - @clientRect.top
+			for listener in @listeners
+				if listener.handle_dblclick(Math.floor(x / 2),Math.floor(y / 2))
 					return
 
 	add_controller_listener: (func) ->
