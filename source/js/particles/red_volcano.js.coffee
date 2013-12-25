@@ -15,5 +15,5 @@ class App.ParticleEmitters.RedVolcano
 
 
 	emit_particle: (x,y) ->
-		speed = Math.random(4) * 2
-		@particle_container.add( new App.Particle(x,y, (Math.random() * 1)-0.5 * speed, -5*speed))
+		speed = Math.random()*1.5
+		@particle_container.add( new App.Particle(x,y, (Math.random() * 1)-0.5 * speed, -4.5*speed))

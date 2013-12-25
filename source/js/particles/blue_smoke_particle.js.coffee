@@ -10,12 +10,13 @@ class App.BlueSmokeParticle
 		@red = 64
 		@green = Math.round(Math.random()*128)+64
 		@blue = Math.floor(Math.random()*128)+127
+		@gravity = (Math.random() * 0.05)+0.05
 
 	update: (deltaTime) ->
 		@x += @velocity_x * deltaTime
 		@y += @velocity_y * deltaTime
 
-		@velocity_y += deltaTime * 0.2
+		@velocity_y += deltaTime * @gravity
 		@age -= deltaTime
 		return @age > 0
 

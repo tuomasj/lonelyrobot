@@ -11,11 +11,11 @@ class App.ParticleEmitters.BlueSmoke
 		@counter -= deltaTime
 		if @counter < 0
 			@emit_particle(@x,@y)
-			@counter = Math.floor(Math.random() * 10) + 5
+			@counter = Math.floor(Math.random() * 15) + 5
 
 	render: (context) ->
 
 
 	emit_particle: (x,y) ->
 		speed = (Math.random() * 2)+1
-		@particle_container.add( new App.BlueSmokeParticle(x,y, (Math.random()-0.5)* speed, -2*speed))
+		@particle_container.add( new App.BlueSmokeParticle(x,y, (Math.random()-0.5)* speed, -1*speed))
