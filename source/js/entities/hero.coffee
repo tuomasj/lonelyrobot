@@ -1,19 +1,20 @@
 #= require 'commands/move_command.js'
 
 class App.Hero extends App.Sprite
-  constructor: (map) ->
-    super(map)
+  constructor: (map, sprites) ->
+    super(map, sprites)
     @max_speed = 6
     @setPosition(60,42)
-    @setSize(window.SPRITE_SIZE_IN_PIXELS, window.SPRITE_SIZE_IN_PIXELS)
+    @setSize(16, 16)
     @menu_listener = null
 
   set_menu_listener: (menu) ->
     @menu_listener = menu
 
   render: (context) ->
-    context.fillStyle = "green"
-    context.fillRect( Math.floor(@x), Math.floor(@y), window.SPRITE_SIZE_IN_PIXELS,window.SPRITE_SIZE_IN_PIXELS)
+    super(context)
+    #context.fillStyle = "green"
+    #context.fillRect( Math.floor(@x), Math.floor(@y), window.SPRITE_SIZE_IN_PIXELS,window.SPRITE_SIZE_IN_PIXELS)
     
   update: (deltaTime) ->
     super(deltaTime)
@@ -51,11 +52,11 @@ class App.Hero extends App.Sprite
     dist_x = Math.floor(mouse_x - @x)
     dist_y = Math.floor(mouse_y - @y)
     if not @menu_listener.active
-      if dist_x > 0 and dist_x < window.SPRITE_SIZE_IN_PIXELS and dist_y > 0 and dist_y < window.SPRITE_SIZE_IN_PIXELS
+      if dist_x > 0 and dist_x < @width and dist_y > 0 and dist_y < @height
         @notify_player_menu()
       else   
         debug "- Move"
-        command = new App.Commands.MoveCommand(this, { x: mouse_x - window.SPRITE_SIZE_IN_PIXELS / 2, y: mouse_y})
+        command = new App.Commands.MoveCommand(this, { x: mouse_x - @width / 2, y: mouse_y})
         @setCommand( command )
 
   notify_player_menu: ->

@@ -1,12 +1,13 @@
 #= require 'tilemap/tile.js'
 
 class App.TileMap
-  constructor: ->
+  constructor: (tile_resource) ->
     console.log "TileMap.constructor"
     @tiles = []
     @TILE_WIDTH = window.TILE_SIZE_IN_PIXELS
     @TILE_HEIGHT = window.TILE_SIZE_IN_PIXELS
     @context = null
+    @tile_resource = tile_resource
 
   load: (map) ->
     debug "TileMap.load()  w:#{map.width}  h:#{map.height}"
@@ -16,8 +17,9 @@ class App.TileMap
     @map_height = map.height
     for y in [0..@map_height-1]
       for x in [0..@map_width-1]
-        if @map[y * @map_width + x] != 0
-          @tiles.push( new App.Tile(x * @TILE_WIDTH, y * @TILE_HEIGHT))
+        index = @map[y * @map_width + x]
+        if index != 0
+          @tiles.push( new App.Tile(x * @TILE_WIDTH, y * @TILE_HEIGHT, index, @tile_resource))
 
   render: (context) ->
     @context = context

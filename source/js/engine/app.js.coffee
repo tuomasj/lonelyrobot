@@ -1,6 +1,7 @@
 window.App = {
   Commands: { },
-  ParticleEmitters: { }
+  ParticleEmitters: { },
+  Resources: { sprites: null}
 }
 window.game = {}
 window.ERROR = 1
