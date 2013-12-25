@@ -12,7 +12,8 @@ class App.Canvas
 			y = e.clientY - @clientRect.top
 			debug "Mouse event on (#{x},#{y})"
 			for listener in @listeners
-				listener.handle_click(x,y)
+				if listener.handle_click(Math.floor(x / 2),Math.floor(y / 2))
+					return
 
 	add_controller_listener: (func) ->
 		@listeners.push(func)

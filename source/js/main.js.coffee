@@ -11,6 +11,8 @@
 #= require 'particles/particle.js'
 #= require 'particles/red_volcano.js'
 #= require 'engine/player_menu.js'
+#= require 'particles/blue_smoke.js'
+
 window.LEVEL2 = {
   width: 15,
   height: 20,
@@ -86,7 +88,8 @@ window.addEventListener "load", ->
     @hero = new App.Hero(tilemap)
     sprites.add( @hero )
     particles = new App.ParticleContainer(tilemap)
-    red_volcano = new App.ParticleEmitters.RedVolcano( particles, 200, 180)
+    red_volcano = new App.ParticleEmitters.RedVolcano( particles, 100, 90)
+    blue_smoke = new App.ParticleEmitters.BlueSmoke( particles, 190, 90)
 
     player_menu = new App.PlayerMenu()
 
@@ -97,11 +100,12 @@ window.addEventListener "load", ->
     engine.addCallback( player_menu )
     
     engine.addCallback( red_volcano )
+    engine.addCallback( blue_smoke )
     canvas.init_controller()
     canvas.add_controller_listener( @hero )
 
     @hero.set_menu_listener( player_menu )
-
+    player_menu.notify(@hero)
     # start your engines
     engine.start()
   else

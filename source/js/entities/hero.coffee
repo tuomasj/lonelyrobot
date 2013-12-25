@@ -4,7 +4,7 @@ class App.Hero extends App.Sprite
   constructor: (map) ->
     super(map)
     @max_speed = 6
-    @setPosition(120,84)
+    @setPosition(60,42)
     @setSize(window.SPRITE_SIZE_IN_PIXELS, window.SPRITE_SIZE_IN_PIXELS)
     @menu_listener = null
 
