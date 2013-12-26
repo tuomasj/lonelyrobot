@@ -11,6 +11,7 @@ class App.Commands.MoveCommand extends App.Command
     @dir = @entity.x - @target_x
 
   start: ->
+    debug "MoveCommand.start()"
     if @dir < 0
       @entity.direction = "left"
       @entity.start_animation("left")
@@ -18,6 +19,7 @@ class App.Commands.MoveCommand extends App.Command
       if @dir > 0
         @entity.direction = "right"
         @entity.start_animation("right")
+    debug "- @direction: #{@entity.direction} (@dir: #{@dir})"
 
   distance: ->
     if @dir > 0

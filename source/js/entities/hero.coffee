@@ -58,18 +58,24 @@ class App.Hero extends App.Sprite
     @setCommand(command)
 
   handle_click: (mouse_x, mouse_y) ->
+    debug "Hero.handle_click()"
     dist_x = Math.floor(mouse_x - @x)
     dist_y = Math.floor(mouse_y - @y)
-    if not @menu_listener.active
-      if dist_x > 0 and dist_x < @width and dist_y > 0 and dist_y < @height
-        @notify_player_menu()
+    return not @menu_listener.active
 
   handle_dblclick: (mouse_x, mouse_y) ->
     dist_x = Math.floor(mouse_x - @x)
     dist_y = Math.floor(mouse_y - @y)
-    #if dist_x < 0 and dist_x > @width
-    #  if dist_y < 0 and dist_y > @height
-    @setCommand(new App.Commands.MoveCommand(this, { x: mouse_x - @width / 2, y: mouse_y}))
+    debug "handle_dblclick( #{dist_x}, #{dist_y})"
+    if dist_x >= 0 and dist_x < @width and dist_y >= 0 and dist_y < @height           
+      if not @menu_listener.active
+        @notify_player_menu()
+        return true
+    else
+      @setCommand(new App.Commands.MoveCommand(this, { x: mouse_x - @width / 2, y: mouse_y}))
+      return true
+    return false
+    
 
   notify_player_menu: ->
     if @menu_listener

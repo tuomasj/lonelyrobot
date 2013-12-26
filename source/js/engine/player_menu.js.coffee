@@ -80,6 +80,7 @@ class App.PlayerMenu extends App.Entity
 		return -1
 
 	handle_click: (x,y) ->
+		debug "PlayerMenu.handle_click(#{x}, #{y})"
 		if @active
 			box_x1 = Math.floor(@entity.x - (@box_width / 2))
 			box_y1 = Math.floor(@entity.y - (@box_height / 2))
@@ -95,7 +96,7 @@ class App.PlayerMenu extends App.Entity
 		return false
 
 	handle_dblclick: (x,y) ->
-		@handle_click(x,y)
+		#@handle_click(x,y)
 
 	perform_action: (action) ->
 		debug "@entity.direction = #{@entity.direction}"

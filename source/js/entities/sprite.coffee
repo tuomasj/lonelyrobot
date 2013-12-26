@@ -32,7 +32,6 @@ class App.Sprite extends App.Entity
     @velocity_y = 0.0
 
   setCommand: (command) ->
-    debug "  - Set command"
     @command = command
     @command.start()
 
