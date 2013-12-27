@@ -1,5 +1,6 @@
 class App.NPC.Collector extends App.Sprite
 	constructor: (map, res, x, y, particles) ->
+		debug "Collector.constructor(particles: #{particles} x:#{x} y:#{y}"
 		super(map,res);
 		@setPosition(x,y)
 		@setSize(16,16)

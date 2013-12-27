@@ -86,14 +86,14 @@ window.init_game = ->
     player_sprites = new App.EntityContainer()
     npcs = new App.EntityContainer()
     static_objects = new App.EntityContainer()
-    @hero = new App.Hero(tilemap, App.Resources.sprites )
+    @hero = new App.Hero(tilemap, App.Resources.sprites, npcs )
     player_sprites.add( @hero )
     particles = new App.ParticleContainer(tilemap)
     
     static_objects.add(new App.NPC.RedVolcano( tilemap, App.Resources.sprites, particles, 6*16, 4*16))
     static_objects.add(new App.NPC.RedVolcano( tilemap, App.Resources.sprites, particles, 10*16, 9*16))
     
-    npcs.add(new App.NPC.Collector( tilemap, App.Resources.sprites, 9*16, 9*16, particles))
+    npcs.add(new App.NPC.Collector( tilemap, App.Resources.sprites, 4*16, 4*16, particles))
 
     player_menu = new App.PlayerMenu( particles )
 

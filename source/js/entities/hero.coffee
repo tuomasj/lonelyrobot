@@ -2,12 +2,13 @@
 #= require 'entities/collector.js'
 
 class App.Hero extends App.Sprite
-  constructor: (map, sprites) ->
+  constructor: (map, sprites, npcs) ->
     super(map, sprites)
     @max_speed = 6
     @setPosition(2*16,0)
     @setSize(16, 16)
     @menu_listener = null
+    @npcs = npcs
     @frames = {
       left: [ [0, 0.5], [1, 0.5], [2, 0.5], [3, 0.5]],
       right: [ [16, 0.5], [17, 0.5], [18, 0.5], [19, 0.5]],
@@ -53,10 +54,6 @@ class App.Hero extends App.Sprite
     @x += @velocity_x * deltaTime
     @y += @velocity_y * deltaTime
 
-  move: (target_x, target_y) ->
-    command = new App.Commands.MoveCommand(this, {x: target_x, y:target_x})
-    @setCommand(command)
-
   handle_click: (mouse_x, mouse_y) ->
     debug "Hero.handle_click()"
     dist_x = Math.floor(mouse_x - @x)
@@ -81,7 +78,65 @@ class App.Hero extends App.Sprite
     if @menu_listener
       @menu_listener.notify(this)
 
-  drop_collector: (particles) ->
+  drop_collector: (x,y,particles) ->
     if @npcs
-      collector = new App.NPC.Collector(@map, @sprites, @x, @y, particles)
+      collector = new App.NPC.Collector(@map, @sprites, x, y, particles)
       @npcs.add(collector)
+
+  collides_with_npcs: ->
+    if @npcs
+      for npc in @npcs.entities
+        res = @entity.check_collision(npc)
+        if res != null
+          return true
+    return false
+
+  clamp: (value, min, max) ->
+    # soo soo, ei saa! duplikaatti-metodi
+    if value > max
+      return max
+    if value < min
+      return min
+    return value
+
+  where_can_build: ->
+    debug "Hero.where_can_build()"
+    # check where the hero can build
+    # if there is no space, return null
+    # otherwise, return { x: x_pos, y: y_pos }
+    x = @x
+    y = @y
+    collision_with_npc = null
+    if @npcs
+      debug "@npcs.length = #{@npcs.length()}"
+      for npc in @npcs.entities
+        if @check_collision(npc) != null
+          collision_with_npc = npc
+    else
+      debug "- No @npcs in Hero", ERROR
+    if collision_with_npc
+      # which side (left / right) is closer to hero center point?
+
+      # hero center x
+      hero_x = Math.floor(@x + Math.floor(@width / 2))
+
+      # distance to left side of a npc with collides with hero
+      left_dist = Math.abs(collision_with_npc.x - hero_x)
+      # distance to right size of a npc with collides with hero
+      right_dist = Math.abs((collision_with_npc.x + collision_with_npc.width) - hero_x)
+
+      debug "left_dist: #{left_dist}  right_dist: #{right_dist}"
+      if left_dist < right_dist
+        debug "- left_size is closer to the center of hero"
+        
+        x = collision_with_npc.x - collision_with_npc.width 
+      else
+        if left_dist > right_dist
+          debug "- right_size is closer to the center of hero"
+          x = collision_with_npc.x + collision_with_npc.width
+      shape = { x: x, y: y, width: npc.width, height: npc.height}
+      if not @npcs.collides_with(shape)
+        return { x: x, y: y }
+      return false
+    else
+      return { x: x, y: y }
