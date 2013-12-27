@@ -1,3 +1,4 @@
+#= require 'animationframe.js'
 #= require 'engine/app.js'
 #= require 'engine/debug.js'
 #= require 'entities/entity.js'
@@ -125,5 +126,5 @@ window.addEventListener "load", ->
   App.Resources.sprites.onload = ->
     debug "Image loaded"
     window.init_game()
-  App.Resources.sprites.src = "/img/sprites.png"
+  App.Resources.sprites.src = "img/sprites.png"
 

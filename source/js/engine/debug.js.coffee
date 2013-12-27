@@ -1,14 +1,17 @@
 window.debug = (msg, msg_type) ->
   debug = document.getElementById("debug")
-  node = document.createElement('li')
-  if msg_type == ERROR
-    node.className = "error"
-  if msg_type == SUCCESS
-    node.className = "success"
-  node.appendChild( document.createTextNode(msg) )
-  debug.appendChild(node)
-  c_height = debug.clientHeight
-  debug.scrollTop = debug.scrollHeight - debug.clientHeight
+  if debug
+    node = document.createElement('li')
+    if msg_type == ERROR
+      node.className = "error"
+    if msg_type == SUCCESS
+      node.className = "success"
+    node.appendChild( document.createTextNode(msg) )
+    debug.appendChild(node)
+    c_height = debug.clientHeight
+    debug.scrollTop = debug.scrollHeight - debug.clientHeight
 
 window.debug_clear = ->
-  document.getElementById("debug").innerHTML = ""
+  debug = document.getElementById("debug")
+  if debug
+    debug.innerHTML = ""

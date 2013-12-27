@@ -7,6 +7,7 @@ class App.Engine
     @active = true
 
   init: ->
+
     @raf = window.requestAnimationFrame
 
     # window.onfocus = @on_focus
@@ -27,7 +28,8 @@ class App.Engine
     
     now = new Date().getTime()
     deltaTime = now - (@time || now);
-
+    if deltaTime > 50
+      deltaTime = 50
     @canvas.context.fillStyle = "rgb(32,32,48)"
     @canvas.context.fillRect(0,0,15*window.TILE_SIZE_IN_PIXELS,20*window.TILE_SIZE_IN_PIXELS)
     for i in @callbacks

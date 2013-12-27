@@ -3,7 +3,11 @@ title: HTML5 Boilerplate Middleman
 ---
 
 <!-- Add your site or application content here -->
-<div style="padding: 16px; background-color: #ccc;">
-<canvas id="canvas" width="240" height="240" style="width: 480px; height: 480px"></canvas><a href="/stop.html">Stop</a>
+<div style="padding: 16px; background-color: #000; text-align: center;">
+<canvas id="canvas" width="240" height="240" style="width: 480px; height: 480px"></canvas>
+</div>
+<% if development? %>
+<a href="/stop.html">Stop</a>
 <ul id="debug">
 </ul>
+<% end %>

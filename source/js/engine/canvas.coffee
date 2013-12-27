@@ -8,12 +8,14 @@ class App.Canvas
 
 	init_controller: ->
 		@canvas.addEventListener "click", (e) =>
+			debug "click event"
 			x = e.clientX - @clientRect.left
 			y = e.clientY - @clientRect.top
 			for listener in @listeners
 				if listener.handle_click(Math.floor(x / 2),Math.floor(y / 2))
 					return
 		@canvas.addEventListener "dblclick", (e) =>
+			debug "dlbclick event"
 			x = e.clientX - @clientRect.left
 			y = e.clientY - @clientRect.top
 			for listener in @listeners
