@@ -9,3 +9,12 @@ If a robot finds something, it's a bonus. If it doesn't, the robot will be left 
 
 ![Screenshot](screenshot1.png)
 
+## How to run this on your own computer
+
+Requires Ruby 2.0 or higher.
+
+```
+bundle
+bundle exec middleman server
+```
+
